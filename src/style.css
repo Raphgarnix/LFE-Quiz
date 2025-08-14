@@ -145,3 +145,15 @@ nav {
     width: 33px;
     height: 48px;
 }
+
+.quizPanel{
+    width: 92%;
+    margin: 2%;
+    margin-top: 1%;
+    background-color: #4A4A4A;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2% 2%; /* Platz unterhalb der Navigation */
+}

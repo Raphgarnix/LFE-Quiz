@@ -1,4 +1,5 @@
 const body = document.getElementById('body');
+const quizPanel = document.getElementById('quizPanel');
 const backButton = document.getElementById('backbutton');
 
 function resetHtml(){
@@ -191,7 +192,14 @@ function startRealQuiz(number){
             <img class="kleinimage" src="${Bild}">
             <label class="kleinlabel">0/${AnzahlAnAufgaben}</label>
         </nav>
-
+        <div class="quizPanel" id="quizPanel">
+        </div>
+    `;
+    
+    quizPanel.innerHTML = `
+        <div>
+            <button>Hi</button>
+        </div>
     `;
 }
 
