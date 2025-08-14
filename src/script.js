@@ -1,12 +1,10 @@
 const body = document.getElementById('body');
-const quizPanel = document.getElementById('quizPanel');
 const backButton = document.getElementById('backbutton');
 
 function resetHtml(){
     body.innerHTML = `
         <nav>
             <div class="newsoundbutton" onclick="newSound()">Credits</div>
-            <div class="refreshbutton" onclick="refresh()">Refresh</div>
             <div class="closebutton" onclick="closeWindow()">Help</div>
         </nav>
         <div class="pictures" id="pictures-container">
@@ -99,10 +97,9 @@ function startQuiz(number) {
     body.innerHTML = `
         <nav>
             <button class="newsoundbutton" onclick="resetHtml()">Back</button>
-            <div class="refreshbutton" onclick="refresh()">Reroll</div>
             <div class="closebutton" onclick="closeWindow()">Help</div>
             <img class="kleinimage" src="${Bild}">
-            <label class="kleinlabel">0/${AnzahlAnAufgaben}</label>
+            <label class="kleinlabel">0 von ${AnzahlAnAufgaben}</label>
         </nav>
 
         <div class="einleitungspanel">
@@ -133,12 +130,20 @@ function startRealQuiz(number){
     
     let AnzahlAnAufgaben;
     let Bild;
+    let Quizes = [];
+    let AnzahlBearbeiten = 0;
+    let AnzahlGeskipped = 0;
 
     // Variablen je nach Quiz setzen
     switch(number) {
         case 1:
-            AnzahlAnAufgaben = 1;
             Bild = "Assets/Die Herren von Winterfell  Das Lied von Eis und Feuer Bd 1.jpeg";
+            Quizes = [
+                `<div><button id="nextQuizButton">Hi</button></div>`,
+                `<div><button id="nextQuizButton">Hallo</button></div>`,
+                `<div><button id="nextQuizButton">Ahoi</button></div>`
+            ];
+            AnzahlAnAufgaben = (Quizes.length);
             break;
         case 2:
             AnzahlAnAufgaben = 1;
@@ -187,20 +192,54 @@ function startRealQuiz(number){
     body.innerHTML = `
         <nav>
             <button class="newsoundbutton" onclick="resetHtml()">Back</button>
-            <div class="refreshbutton" onclick="refresh()">Reroll</div>
+            <button class="refreshbutton" id="refreshbutton" onclick="loadRandomQuiz()">Reroll</button>
             <div class="closebutton" onclick="closeWindow()">Help</div>
             <img class="kleinimage" src="${Bild}">
-            <label class="kleinlabel">0/${AnzahlAnAufgaben}</label>
+            <label class="kleinlabel" id="kleinlabel">0  von  ${AnzahlAnAufgaben}</label>
+            <label class="geskippedlabel" id="geskippedlabel">${AnzahlGeskipped} mal Skipped</label>
         </nav>
         <div class="quizPanel" id="quizPanel">
         </div>
+        
     `;
-    
-    quizPanel.innerHTML = `
-        <div>
-            <button>Hi</button>
-        </div>
-    `;
+
+    const quizPanel = document.getElementById('quizPanel');
+    const refreshbutton = document.getElementById("refreshbutton");
+    const kleinlabel = document.getElementById('kleinlabel');
+    const geskippedlabel = document.getElementById('geskippedlabel');
+
+    function loadRandomQuiz() {
+        if (Quizes.length === 0) {
+            quizPanel.innerHTML = `<div>Keine weiteren Fragen!</div>`;
+            refreshbutton.disabled = true;
+            return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * Quizes.length);
+        quizPanel.innerHTML = Quizes[randomIndex];
+        Quizes.splice(randomIndex, 1); // remove shown quiz
+
+        const nextQuizButton = document.getElementById("nextQuizButton");
+        if (nextQuizButton) {
+            nextQuizButton.addEventListener("click", loadRandomQuiz);
+        }
+
+        AnzahlBearbeiten++;
+        kleinlabel.textContent = AnzahlBearbeiten + " von " + AnzahlAnAufgaben;
+    }
+    function erhöhenDerAnzahlGeskipped(){
+        AnzahlGeskipped++;
+        geskippedlabel.textContent = AnzahlGeskipped + " mal Skipped";
+
+    }
+
+    refreshbutton.addEventListener("click", () => {
+        erhöhenDerAnzahlGeskipped();
+        loadRandomQuiz();
+    });
+
+    // First load
+    loadRandomQuiz();
 }
 
 
