@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFE - Quiz</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body id="body">
+    <nav>
+        <button class="newsoundbutton" onclick="resetHtml()">Back</button>
+        <button class="refreshbutton" id="refreshbutton" onclick="loadRandomQuiz()">Reroll</button>
+        <div class="closebutton" onclick="closeWindow()">Help</div>
+        <img class="kleinimage" src="${Bild}">
+        <label class="kleinlabel" id="kleinlabel">0  von  ${AnzahlAnAufgaben}</label>
+        <label class="geskippedlabel" id="geskippedlabel">${AnzahlGeskipped} mal Skipped</label>
+    </nav>
+    <div class="quizPanel" id="quizPanel">
+        <div class="imageQuizNames">
+            <label class="imageQuizNamesInstrucktions">Name the Houses, which belong to the Wappen underneath </label>
+            <div class="imageQuizNamesItems">
+                <div class="quizItem">
+                    <img class="imageQuizNamesImage" id="01Baratheon/img" src="Assets/Quiz1/Wappen Baratheon.jpg">
+                    <input type="text" class="imageQuizNamesInput" id="01Baratheon/input">
+                    <button class="" id="01Baratheon/button">Check</button>
+                </div>
+                <div class="quizItem">
+                    <img class="imageQuizNamesImage" src="Assets/Quiz1/Wappen-Lennister.jpg">
+                    <input type="text" class="imageQuizNamesInput">
+                </div>
+                <div class="quizItem">
+                    <img class="imageQuizNamesImage" src="Assets/Quiz1/Wappen-Winterfell.jpg">
+                    <input type="text" class="imageQuizNamesInput">
+                </div>
+            </div>            
+        </div>
+        <div><button id="nextQuizButton">Hi</button></div>
+    </div>
+</body>
+</html>
